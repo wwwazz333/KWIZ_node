@@ -9,7 +9,7 @@ export namespace ScoreQuizHelper {
 
 
 	export const createScoreQuiz = (scoreQuiz: ScoreQuiz): void => {
-		const res = database.prepare('INSERT INTO score_quiz(name, score, quizId) VALUES(?)')
+		const res = database.prepare('INSERT INTO score_quiz(name, score, quizId) VALUES(?, ?, ?)')
 			.run([scoreQuiz.name, scoreQuiz.score, scoreQuiz.quizId]);
 	}
 	export const getScoreQuizByID = (id: number): ScoreQuiz => {
