@@ -1,6 +1,6 @@
 export interface AnswerQuiz {
 	id: number;
 	answer: string;
-	questionId: number;
+	questionId: number| bigint;
 	isCorrect: boolean;
 }

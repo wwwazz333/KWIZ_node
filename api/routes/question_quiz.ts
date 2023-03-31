@@ -15,6 +15,12 @@ router.get('/:id',
 		res.send(QuestionQuizService.getQuestionQuizByID(parseInt(id)));
 	});
 
+router.get('/for/:idQuiz',
+	(req: Request, res: Response) => {
+		const { idQuiz } = req.params
+		res.send(QuestionQuizService.getAllQuestionQuizForQuiz(parseInt(idQuiz)));
+	});
+
 router.post("/new",
 	(req: Request, res: Response) => {
 		const test = req.body;

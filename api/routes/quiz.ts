@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { QuestionQuizService } from '../services/question_quiz';
 import { QuizService } from '../services/quiz';
 
 const router = express.Router();
@@ -17,9 +18,15 @@ router.get('/:id',
 
 router.post("/new",
 	(req: Request, res: Response) => {
-		const test = req.body;
-		QuizService.createQuiz(test);
-		res.sendStatus(201);
+		const { quiz, questions } = req.body;
+		const result = QuizService.createQuiz(quiz);		
+		
+		for (const question of questions) {
+			question.quizId = result.lastInsertRowid;
+			console.log(question.answers);
+			
+			QuestionQuizService.createQuestionQuiz(question);
+		}
 	});
 
 export default router;

@@ -5,6 +5,10 @@ export namespace QuestionQuizService {
 		return QuestionQuizHelper.getAllQuestionQuizs();
 	}
 
+	export const getAllQuestionQuizForQuiz = (idQuiz:number): Array<QuestionQuiz> => {
+		return QuestionQuizHelper.getAllQuestionQuizForQuiz(idQuiz);
+	}
+
 	export const createQuestionQuiz = (question: QuestionQuiz): void => {
 		QuestionQuizHelper.createQuestionQuiz(question);
 	}
