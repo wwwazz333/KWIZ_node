@@ -8,11 +8,45 @@ const connection = (): Promise<void> => {
 	});
 }
 const loadDatabase = (db: Database): void => {
+	
 	db.prepare(`
-		CREATE TABLE IF NOT EXISTS test
+		CREATE TABLE IF NOT EXISTS quiz
 		(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			name VARCHAR NOT NULL
+			name VARCHAR NOT NULL,
+			nbrQueston INTEGER NOT NULL
+		)
+		`).run();
+
+		db.prepare(`
+		CREATE TABLE IF NOT EXISTS question_quiz
+		(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			question VARCHAR NOT NULL,
+			quizId INTEGER NOT NULL,
+			FOREIGN KEY (quizId) REFERENCES quiz(id)
+		)
+		`).run();
+
+		db.prepare(`
+		CREATE TABLE IF NOT EXISTS answer_quiz
+		(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			answer VARCHAR NOT NULL,
+			questionId INTEGER NOT NULL,
+			isCorrect INTEGER NOT NULL,
+			FOREIGN KEY (questionId) REFERENCES question_quiz(id)
+		)
+		`).run();
+
+		db.prepare(`
+		CREATE TABLE IF NOT EXISTS score_quiz
+		(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name VARCHAR NOT NULL,
+			score INTEGER NOT NULL,
+			quizId INTEGER NOT NULL,
+			FOREIGN KEY (quizId) REFERENCES quiz(id)
 		)
 		`).run();
 }
